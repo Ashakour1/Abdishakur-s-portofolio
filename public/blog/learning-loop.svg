@@ -1,0 +1,17 @@
+<svg width="1200" height="720" viewBox="0 0 1200 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="720" rx="32" fill="#08111F"/>
+  <rect x="48" y="48" width="1104" height="624" rx="24" fill="#0D1728" stroke="#223049"/>
+  <circle cx="240" cy="360" r="104" fill="#101E34" stroke="#2B3A57"/>
+  <circle cx="600" cy="216" r="104" fill="#101E34" stroke="#2B3A57"/>
+  <circle cx="600" cy="504" r="104" fill="#101E34" stroke="#2B3A57"/>
+  <circle cx="960" cy="360" r="104" fill="#101E34" stroke="#2B3A57"/>
+  <path d="M344 323C414 261 468 237 496 229" stroke="#8FB7FF" stroke-width="3"/>
+  <path d="M705 263C785 283 844 314 856 323" stroke="#8FB7FF" stroke-width="3"/>
+  <path d="M857 397C818 427 761 458 703 477" stroke="#8FB7FF" stroke-width="3"/>
+  <path d="M496 492C451 476 393 449 343 397" stroke="#8FB7FF" stroke-width="3"/>
+  <text x="240" y="368" fill="#E5EDF9" font-family="Arial, sans-serif" font-size="30" text-anchor="middle">Question</text>
+  <text x="600" y="224" fill="#E5EDF9" font-family="Arial, sans-serif" font-size="30" text-anchor="middle">Experiment</text>
+  <text x="600" y="512" fill="#E5EDF9" font-family="Arial, sans-serif" font-size="30" text-anchor="middle">Notes</text>
+  <text x="960" y="368" fill="#E5EDF9" font-family="Arial, sans-serif" font-size="30" text-anchor="middle">Revision</text>
+  <text x="120" y="112" fill="#7186AA" font-family="Arial, sans-serif" font-size="18" letter-spacing="4">LEARNING LOOP</text>
+</svg>

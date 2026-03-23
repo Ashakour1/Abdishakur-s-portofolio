@@ -1,0 +1,10 @@
+<svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="200" rx="24" fill="#0F223B"/>
+  <rect x="74" y="36" width="172" height="120" rx="14" fill="#152E4B" stroke="#8396AD" stroke-opacity=".3"/>
+  <rect x="92" y="58" width="70" height="10" rx="5" fill="#DEE6EF"/>
+  <rect x="92" y="80" width="136" height="8" rx="4" fill="#8EA4BC"/>
+  <rect x="92" y="96" width="120" height="8" rx="4" fill="#8EA4BC"/>
+  <rect x="92" y="112" width="90" height="8" rx="4" fill="#8EA4BC"/>
+  <circle cx="220" cy="64" r="10" fill="#2D6BFF"/>
+  <text x="132" y="182" fill="#E6EDF5" font-family="system-ui, sans-serif" font-size="18" font-weight="600">Azm</text>
+</svg>

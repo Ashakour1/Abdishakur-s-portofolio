@@ -1,0 +1,7 @@
+<svg width="320" height="200" viewBox="0 0 320 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="200" rx="24" fill="#122640"/>
+  <circle cx="160" cy="100" r="42" fill="#FF6C37"/>
+  <path d="m148 88 30 12-30 12 8-12-8-12Z" fill="#FFF3EE"/>
+  <rect x="174" y="96" width="22" height="8" rx="4" fill="#FFF3EE"/>
+  <text x="104" y="182" fill="#E6EDF5" font-family="system-ui, sans-serif" font-size="18" font-weight="600">Postman</text>
+</svg>
