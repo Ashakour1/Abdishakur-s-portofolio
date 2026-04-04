@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navigation, siteConfig } from "@/lib/site-data";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 function isActivePath(pathname: string, href: string) {
   if (href === "/") {
@@ -18,67 +19,71 @@ export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0A192F]/85 backdrop-blur-md">
+    <header className="sticky top-0 z-50  border-line bg-background/95">
       <div className="mx-auto max-w-6xl px-5 py-4 sm:px-6">
         <div className="flex items-center justify-between gap-6">
           <Link
             href="/"
-            className="min-w-0 text-sm font-semibold text-white"
+            className="min-w-0 text-base font-semibold tracking-[0.01em] text-foreground"
             onClick={() => setIsMenuOpen(false)}
           >
             {siteConfig.name}
           </Link>
 
-          <button
-            type="button"
-            aria-expanded={isMenuOpen}
-            aria-controls="site-menu"
-            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-white transition-colors hover:border-white/20 hover:bg-white/[0.03] md:hidden"
-            onClick={() => setIsMenuOpen((open) => !open)}
-          >
-            <span className="relative h-4 w-4">
-              <span
-                className={`absolute left-0 top-0 h-px w-4 bg-current transition-transform duration-200 ease-out ${
-                  isMenuOpen ? "translate-y-[7px] rotate-45" : ""
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-[7px] h-px w-4 bg-current transition-opacity duration-200 ease-out ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-[14px] h-px w-4 bg-current transition-transform duration-200 ease-out ${
-                  isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
-                }`}
-              />
-            </span>
-          </button>
+          <div className="flex items-center gap-3">
+            <nav
+              aria-label="Primary"
+              className="hidden items-center gap-x-6 md:flex md:justify-end"
+            >
+              {navigation.map((item) => {
+                const active = isActivePath(pathname, item.href);
 
-          <nav
-            aria-label="Primary"
-            className="hidden items-center gap-x-1 md:flex md:justify-end"
-          >
-            {navigation.map((item) => {
-              const active = isActivePath(pathname, item.href);
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`py-1 text-sm ${
+                      active
+                        ? "font-medium text-foreground"
+                        : "text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`border-b px-3 py-2 text-sm ${
-                    active
-                      ? "border-white/70 text-white"
-                      : "border-transparent text-slate-300 hover:border-white/20 hover:text-white"
+            <ThemeToggle />
+
+            <button
+              type="button"
+              aria-expanded={isMenuOpen}
+              aria-controls="site-menu"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              className="inline-flex h-10 w-10 items-center justify-center border border-line bg-transparent text-foreground transition-colors hover:bg-hover-surface md:hidden"
+              onClick={() => setIsMenuOpen((open) => !open)}
+            >
+              <span className="relative h-4 w-4">
+                <span
+                  className={`absolute left-0 top-0 h-px w-4 bg-current transition-transform duration-200 ease-out ${
+                    isMenuOpen ? "translate-y-[7px] rotate-45" : ""
                   }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+                />
+                <span
+                  className={`absolute left-0 top-[7px] h-px w-4 bg-current transition-opacity duration-200 ease-out ${
+                    isMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`absolute left-0 top-[14px] h-px w-4 bg-current transition-transform duration-200 ease-out ${
+                    isMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                  }`}
+                />
+              </span>
+            </button>
+          </div>
         </div>
 
         <div
@@ -91,11 +96,11 @@ export function SiteHeader() {
           <nav
             id="site-menu"
             aria-label="Mobile primary"
-            className="overflow-hidden rounded-lg"
+            className="overflow-hidden border border-line bg-background"
           >
             <div
               className={`flex flex-col transition-transform duration-300 ease-out ${
-                isMenuOpen ? "translate-y-0 pt-3" : "-translate-y-2 pt-0"
+                isMenuOpen ? "translate-y-0 py-2" : "-translate-y-2 py-0"
               }`}
             >
               {navigation.map((item) => {
@@ -107,10 +112,10 @@ export function SiteHeader() {
                     href={item.href}
                     aria-current={active ? "page" : undefined}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`border-b border-white/10 py-3 text-sm transition-colors ${
+                    className={`border-b border-line px-4 py-3 text-sm transition-colors last:border-b-0 ${
                       active
-                        ? "text-white"
-                        : "text-slate-300 hover:text-white"
+                        ? "font-medium text-foreground"
+                        : "text-muted hover:text-foreground"
                     }`}
                   >
                     {item.label}

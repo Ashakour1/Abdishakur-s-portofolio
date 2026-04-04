@@ -35,48 +35,48 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="space-y-2 text-sm text-slate-300">
+        <label className="space-y-2 text-sm text-muted">
           <span>Name</span>
           <input
             type="text"
             name="name"
             required
             autoComplete="name"
-            className="w-full border border-white/10 bg-white/[0.03] px-4 py-3 text-base text-white outline-none placeholder:text-slate-500 focus:border-white/25 sm:text-sm"
+            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
             placeholder="Your name"
           />
         </label>
 
-        <label className="space-y-2 text-sm text-slate-300">
+        <label className="space-y-2 text-sm text-muted">
           <span>Email</span>
           <input
             type="email"
             name="email"
             required
             autoComplete="email"
-            className="w-full border border-white/10 bg-white/[0.03] px-4 py-3 text-base text-white outline-none placeholder:text-slate-500 focus:border-white/25 sm:text-sm"
+            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
             placeholder="you@example.com"
           />
         </label>
       </div>
 
-      <label className="space-y-2 text-sm text-slate-300">
+      <label className="space-y-2 text-sm text-muted">
         <span>Message</span>
         <textarea
           name="message"
           required
           rows={6}
-          className="w-full border border-white/10 bg-white/[0.03] px-4 py-3 text-base text-white outline-none placeholder:text-slate-500 focus:border-white/25 sm:text-sm"
+          className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
           placeholder="Tell me a bit about what you want to build or discuss."
         />
       </label>
 
-      <div className="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm leading-6 text-slate-400">{status}</p>
+      <div className="flex flex-col gap-4 border-t border-line pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-sm leading-6 text-quiet">{status}</p>
 
         <button
           type="submit"
-          className="inline-flex w-full items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-medium text-[#0A192F] hover:bg-slate-200 sm:w-auto"
+          className="inline-flex w-full items-center justify-center border border-line-strong px-5 py-3 text-sm font-medium tracking-[0.01em] text-foreground sm:w-auto"
         >
           Send Message
         </button>

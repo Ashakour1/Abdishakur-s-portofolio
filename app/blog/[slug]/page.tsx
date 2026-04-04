@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogContentBlockView } from "@/components/blog-content-block";
-import { blogPosts, getPostBySlug } from "@/lib/site-data";
+import { blogPosts, getPostBySlug } from "@/lib/blog-data";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -22,19 +22,6 @@ function createSectionId(heading: string) {
 
 function formatArticleMonth(date: string) {
   return articleMonthFormatter.format(new Date(date));
-}
-
-function splitEditorialTitle(title: string) {
-  const words = title.trim().split(/\s+/);
-
-  if (words.length <= 2) {
-    return { primary: title, accent: "" };
-  }
-
-  return {
-    primary: words.slice(0, -2).join(" "),
-    accent: words.slice(-2).join(" "),
-  };
 }
 
 export async function generateStaticParams() {
@@ -73,7 +60,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ...section,
     id: createSectionId(section.heading),
   }));
-  const titleParts = splitEditorialTitle(post.title);
 
   return (
     <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-14 sm:px-6 sm:py-20">
@@ -86,28 +72,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
       <article className="mt-8">
         <header className="fade-up fade-up-delay-1 pt-4">
-          <p className="text-[11px] uppercase tracking-[0.32em] text-white/35">
-            {formatArticleMonth(post.date)}
-          </p>
-          <h1 className="editorial-title mt-7 max-w-5xl text-4xl leading-[0.96] text-white sm:text-7xl">
-            {titleParts.primary}
-            {titleParts.accent ? (
-              <>
-                {" "}
-                <span className="editorial-accent block sm:inline">
-                  {titleParts.accent}
-                </span>
-              </>
-            ) : null}
-          </h1>
-
-          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.24em] text-white/30">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] uppercase tracking-[0.24em] text-white/35">
+            <span>{formatArticleMonth(post.date)}</span>
             <span>{post.category}</span>
             <span>{post.readTime}</span>
-            <span>Field Notes</span>
           </div>
+          <h1 className="editorial-title mt-7 max-w-5xl text-4xl leading-[0.96] text-white sm:text-7xl">
+            {post.title}
+          </h1>
 
-          <p className="mt-8 max-w-4xl text-base leading-8 text-slate-300 sm:mt-10 sm:text-[1.35rem] sm:leading-9">
+          <p className="mt-8 max-w-4xl text-base leading-8 text-white/72 sm:mt-10 sm:text-[1.35rem] sm:leading-9">
             {post.excerpt}
           </p>
         </header>
@@ -139,7 +113,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <h2 className="mt-4 max-w-2xl text-2xl font-semibold tracking-tight text-white">
                 Read more notes or start a conversation.
               </h2>
-              <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300">
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-white/70">
                 If this article was useful, you can explore more writing on
                 engineering and AI/ML, or reach out directly through the
                 contact page.
@@ -148,13 +122,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <div className="mt-6 flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap">
                 <Link
                   href="/blog"
-                  className="inline-flex w-full items-center justify-center rounded-lg bg-white px-5 py-3 font-medium text-[#0A192F] hover:bg-slate-200 sm:w-auto"
+                  className="inline-flex w-full items-center justify-center border border-line-strong px-5 py-3 font-medium tracking-[0.01em] text-foreground sm:w-auto"
                 >
                   More articles
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex w-full items-center justify-center rounded-lg border border-white/12 px-5 py-3 font-medium text-white hover:border-white/25 hover:bg-white/[0.03] sm:w-auto"
+                  className="inline-flex w-full items-center justify-center border border-line px-5 py-3 font-medium tracking-[0.01em] text-foreground sm:w-auto"
                 >
                   Contact Me
                 </Link>
@@ -163,7 +137,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
 
           <aside className="fade-up fade-up-delay-1 text-sm lg:sticky lg:top-24 lg:self-start">
-            <div className="space-y-3 text-slate-300">
+            <div className="space-y-3 text-white/68">
               <p className="text-[11px] uppercase tracking-[0.28em] text-white/35">
                 In this article
               </p>
@@ -172,7 +146,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <a
                     key={section.id}
                     href={`#${section.id}`}
-                    className="grid grid-cols-[22px_1fr] gap-2 leading-6 text-slate-300 hover:text-white"
+                    className="grid grid-cols-[22px_1fr] gap-2 leading-6 text-white/68 hover:text-white"
                   >
                     <span className="text-white/25">
                       {String(index + 1).padStart(2, "0")}

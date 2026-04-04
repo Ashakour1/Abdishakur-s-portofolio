@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
 import { educationEntries, experienceEntries } from "@/lib/site-data";
@@ -13,8 +14,8 @@ export default function AboutPage() {
   return (
     <PageShell
       eyebrow="About Me"
-      title="Software engineering today, with a steady move into AI and machine learning."
-      description="I am a Software Engineer at Salaam Group, based in Mogadishu, Somalia. My work is centered on reliable products, backend thinking, and practical execution, while I continue building toward AI and machine learning."
+      title="Software engineer building across systems, AI, and fintech."
+      description="I am a Software Engineer based in Mogadishu, Somalia, focused on reliable products, backend systems, AI-driven tools, and practical fintech software."
     >
       <section className="grid gap-8 border-t border-white/10 pt-10 lg:grid-cols-[0.72fr_1.28fr]">
         <div className="space-y-3">
@@ -22,27 +23,26 @@ export default function AboutPage() {
             Introduction
           </p>
           <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            Building dependable software while growing into intelligent systems.
+            Building reliable software across backend systems, AI, and fintech products.
           </h2>
         </div>
 
         <div className="space-y-4 text-sm leading-8 text-slate-300">
           <p>
-            I enjoy building software that is reliable, clear, and useful in
-            real-world work. My background is grounded in software engineering,
-            backend systems, and product execution that stays practical and
-            maintainable.
+            I work on software that needs to be practical, dependable, and
+            useful beyond the first release. My background is rooted in
+            software engineering, backend systems, and product execution that
+            stays clear as complexity grows.
           </p>
           <p>
-            At the same time, I am intentionally moving deeper into AI and
-            machine learning. I am interested in models, experimentation,
-            evaluation, and the engineering systems that make intelligent tools
-            actually useful.
+            I am particularly interested in AI and fintech, where strong
+            engineering decisions shape how products perform, scale, and create
+            trust for the people using them.
           </p>
           <p>
-            The common thread in all of it is problem-solving: understanding
-            the real problem, designing the right system, and building
-            solutions that hold up over time.
+            What ties my work together is a focus on building systems that are
+            understandable, maintainable, and built around real problems rather
+            than unnecessary complexity.
           </p>
         </div>
       </section>
@@ -60,17 +60,27 @@ export default function AboutPage() {
         <div className="space-y-6">
           {experienceEntries.map((entry) => (
             <article
-              key={entry.title + entry.subtitle}
+              key={entry.title + entry.company + entry.period}
               className="border-b border-white/10 pb-6 last:border-b-0 last:pb-0"
             >
-              <div className="space-y-2">
-                <div>
-                  <h3 className="text-base font-semibold text-white">{entry.title}</h3>
-                  <p className="text-sm text-slate-400">{entry.subtitle}</p>
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl">
+                  <Image
+                    src={entry.logo}
+                    alt={`${entry.company} logo`}
+                    width={48}
+                    height={48}
+                    className="h-12 w-12 rounded-xl object-contain"
+                  />
                 </div>
-                <p className="max-w-3xl text-sm leading-7 text-slate-300">
-                  {entry.description}
-                </p>
+
+                <div className="space-y-2">
+                  <div>
+                    <h3 className="text-base font-semibold text-white">{entry.title}</h3>
+                    <p className="text-sm text-slate-400">{entry.company}</p>
+                  </div>
+                  <p className="text-sm text-slate-300">{entry.period}</p>
+                </div>
               </div>
             </article>
           ))}
@@ -90,13 +100,19 @@ export default function AboutPage() {
         <div className="space-y-6">
           {educationEntries.map((entry) => (
             <article
-              key={entry.title + entry.subtitle}
+              key={entry.degree + entry.institution + entry.date}
               className="border-b border-white/10 pb-6 last:border-b-0 last:pb-0"
             >
               <div className="space-y-2">
-                <div>
-                  <h3 className="text-base font-semibold text-white">{entry.title}</h3>
-                  <p className="text-sm text-slate-400">{entry.subtitle}</p>
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+                  <div>
+                    <h3 className="text-base font-semibold text-white">{entry.degree}</h3>
+                    <p className="text-sm text-slate-400">{entry.institution}</p>
+                  </div>
+                  <div className="text-sm text-slate-400 sm:text-right">
+                    <p>{entry.date}</p>
+                    <p>{entry.location}</p>
+                  </div>
                 </div>
                 <p className="max-w-3xl text-sm leading-7 text-slate-300">
                   {entry.description}
@@ -107,8 +123,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 pt-10">
-        <div className="border border-white/10 bg-white/[0.02] px-5 py-8 sm:px-8">
+      <section className=" border-white/10 pt-10">
+        <div className="border  border-white/10   px-5 py-8 sm:px-8">
           <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
             Next Step
           </p>
@@ -124,13 +140,13 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/blog"
-              className="inline-flex w-full items-center justify-center rounded-lg bg-white px-5 py-3 text-sm font-medium text-[#0A192F] hover:bg-slate-200 sm:w-auto"
+              className="inline-flex w-full items-center justify-center border border-line-strong px-5 py-3 text-sm font-medium tracking-[0.01em] text-foreground sm:w-auto"
             >
               View Blog
             </Link>
             <Link
               href="/contact"
-              className="inline-flex w-full items-center justify-center rounded-lg border border-white/[0.14] px-5 py-3 text-sm font-medium text-white hover:border-white/25 hover:bg-white/[0.03] sm:w-auto"
+              className="inline-flex w-full items-center justify-center border border-line px-5 py-3 text-sm font-medium tracking-[0.01em] text-foreground sm:w-auto"
             >
               Contact Me
             </Link>

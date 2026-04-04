@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { type BlogContentBlock } from "@/lib/site-data";
+import { type BlogContentBlock } from "@/lib/blog-data";
 
 type BlogContentBlockProps = {
   block: BlogContentBlock;
@@ -77,38 +77,38 @@ function getTokenClassName(
   }
 
   if (token.startsWith("//") || token.startsWith("#")) {
-    return "text-slate-500 italic";
+    return "text-white/32 italic";
   }
 
   if (/^["'`]/.test(token)) {
-    return "text-emerald-300";
+    return "text-white/82";
   }
 
   if (/^\d/.test(token)) {
-    return "text-sky-300";
+    return "text-white/74";
   }
 
   if (keywordSet.has(token)) {
-    return "text-violet-300";
+    return "text-white";
   }
 
   if (/^[{}()[\].,:=+\-*/<>]+$/.test(token)) {
-    return "text-slate-500";
+    return "text-white/34";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && nextToken === ":") {
-    return "text-cyan-300";
+    return "text-white/88";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && nextToken === "(") {
-    return "text-blue-200";
+    return "text-white/80";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && previousToken === ".") {
-    return "text-sky-200";
+    return "text-white/74";
   }
 
-  return "text-slate-200";
+  return "text-white/70";
 }
 
 function HighlightedCode({
@@ -150,11 +150,11 @@ function HighlightedCode({
 export function BlogContentBlockView({ block }: BlogContentBlockProps) {
   switch (block.type) {
     case "paragraph":
-      return <p className="text-base leading-8 text-slate-300">{block.content}</p>;
+      return <p className="text-base leading-8 text-white/72">{block.content}</p>;
 
     case "list":
       return (
-        <ul className="space-y-3 text-base leading-8 text-slate-300">
+        <ul className="space-y-3 text-base leading-8 text-white/72">
           {block.items.map((item) => (
             <li key={item} className="flex gap-3">
               <span className="mt-3 h-1.5 w-1.5 rounded-full bg-white/30" />
@@ -174,12 +174,12 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
             </figcaption>
           ) : null}
 
-          <pre className="overflow-x-auto bg-[#08111f] px-5 py-4 text-sm leading-7 text-slate-200">
+          <pre className="overflow-x-auto bg-background px-5 py-4 text-sm leading-7 text-white/72">
             <HighlightedCode code={block.code} language={block.language} />
           </pre>
 
           {block.caption ? (
-            <figcaption className="text-sm leading-7 text-slate-400">
+            <figcaption className="text-sm leading-7 text-white/48">
               {block.caption}
             </figcaption>
           ) : null}
@@ -188,7 +188,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
 
     case "math":
       return (
-        <div className="space-y-3 bg-white/[0.03] px-5 py-5">
+        <div className="space-y-3 bg-background px-5 py-5">
           {block.label ? (
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/35">
               {block.label}
@@ -200,7 +200,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
           </pre>
 
           {block.note ? (
-            <p className="text-sm leading-7 text-slate-400">{block.note}</p>
+            <p className="text-sm leading-7 text-white/48">{block.note}</p>
           ) : null}
         </div>
       );
@@ -208,7 +208,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
     case "image":
       return (
         <figure className="space-y-3">
-          <div className="overflow-hidden bg-white/[0.03] p-3">
+          <div className="overflow-hidden bg-background p-3">
             <Image
               src={block.src}
               alt={block.alt}
@@ -220,7 +220,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
           </div>
 
           {block.caption ? (
-            <figcaption className="text-sm leading-7 text-slate-400">
+            <figcaption className="text-sm leading-7 text-white/48">
               {block.caption}
             </figcaption>
           ) : null}

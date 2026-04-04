@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatDate, type BlogPost } from "@/lib/site-data";
+import { formatDate, type BlogPost } from "@/lib/blog-data";
 
 type BlogPreviewCardProps = {
   post: BlogPost;
@@ -17,7 +17,7 @@ export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
 
         <div className="min-w-0 space-y-3">
           <Link href={`/blog/${post.slug}`} className="block">
-            <h2 className="text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-slate-100">
+            <h2 className="text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-slate-100 sm:text-[1.4rem]">
               {post.title}
             </h2>
           </Link>
@@ -26,9 +26,9 @@ export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
 
         <Link
           href={`/blog/${post.slug}`}
-          className="inline-flex items-center text-sm font-medium text-slate-100 hover:text-white md:pt-1 lg:justify-self-end"
+          className="inline-flex items-center text-sm font-medium text-slate-100 transition-transform group-hover:translate-x-0.5 hover:text-white md:pt-1 lg:justify-self-end"
         >
-          Read
+          Read article
         </Link>
       </div>
     </article>

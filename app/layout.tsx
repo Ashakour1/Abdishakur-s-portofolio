@@ -1,15 +1,27 @@
 import type { Metadata } from "next";
-import {Manrope} from "next/font/google";
+import Script from "next/script";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/lib/site-data";
 import "./globals.css";
 
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
+const themeBootstrapScript = `
+  (() => {
+    const storageKey = "preferred-theme";
+    const root = document.documentElement;
+    const storedTheme = window.localStorage.getItem(storageKey);
+    const theme =
+      storedTheme === "light" || storedTheme === "dark"
+        ? storedTheme
+        : window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+  })();
+`;
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -36,8 +48,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en"  className="h-full antialiased" style={{ fontFamily: manrope.style.fontFamily }}>
-      <body className="min-h-full bg-background font-sans text-foreground">
+    <html lang="en" data-theme="dark" suppressHydrationWarning>
+      <body className="min-h-screen bg-background text-foreground">
+        <Script id="theme-bootstrap" strategy="beforeInteractive">
+          {themeBootstrapScript}
+        </Script>
         <div aria-hidden="true" className="site-grid" />
         <div className="relative z-10 flex min-h-screen flex-col">
           <SiteHeader />
