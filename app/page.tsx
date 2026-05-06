@@ -233,18 +233,18 @@ Building products, always learning, and sharing about software engineering, fint
         </div>
       </section>
 
-      <section className="fade-up fade-up-delay-2 space-y-5 border-t border-white/10 pt-10">
+      <section className="fade-up fade-up-delay-2 space-y-8 border-t border-white/10 pt-10">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="min-w-0">
+          <div className="min-w-0 space-y-3">
             <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
               Daily Usage
             </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               A selection of the tools I use every day.
             </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-white/45">
-              A quick look at the hardware and software that support my daily
-              workflow across development, testing, and focused execution.
+            <p className="max-w-md text-sm leading-7 text-slate-300">
+              The hardware and software that support my daily workflow across
+              development, testing, and focused execution.
             </p>
           </div>
 
@@ -258,40 +258,41 @@ Building products, always learning, and sharing about software engineering, fint
           </div>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-x-10 gap-y-6 sm:grid-cols-2">
           {featuredDailyUsageItems.map((item) => (
-            <article key={item.name}>
-              <div className="flex items-start gap-3">
-                {item.image ? (
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white/[0.04]">
-                    <Image
-                      src={item.image}
-                      alt={item.name}
-                      width={56}
-                      height={56}
-                      className="h-14 w-14 object-cover"
-                      unoptimized={item.image.endsWith(".svg")}
-                    />
-                  </div>
-                ) : (
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center">
-                    <span className="text-[12px] font-medium uppercase tracking-[0.02em] text-slate-500">
-                      {getInitials(item.name)}
-                    </span>
-                  </div>
-                )}
-
-                <div className="min-w-0 pt-0.5">
-                  <p className="text-[11px] uppercase tracking-[0.12em] text-slate-400">
-                    {item.category}
-                  </p>
-                  <h3 className="mt-0.5 text-[1.02rem] font-medium leading-6 text-white">
-                    {item.name}
-                  </h3>
-                  <p className="mt-1.5 max-w-md text-[15px] leading-6 text-slate-300">
-                    {item.description}
-                  </p>
+            <article
+              key={item.name}
+              className="flex items-start gap-4 border-t border-white/5 pt-5"
+            >
+              {item.image ? (
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-white/[0.04]">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    width={48}
+                    height={48}
+                    className="h-12 w-12 object-cover"
+                    unoptimized={item.image.endsWith(".svg")}
+                  />
                 </div>
+              ) : (
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.02]">
+                  <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-white/55">
+                    {getInitials(item.name)}
+                  </span>
+                </div>
+              )}
+
+              <div className="min-w-0 space-y-1">
+                <p className="text-[10px] uppercase tracking-[0.22em] text-white/45">
+                  {item.category}
+                </p>
+                <h3 className="text-base font-semibold tracking-tight text-white">
+                  {item.name}
+                </h3>
+                <p className="text-sm leading-6 text-slate-300">
+                  {item.description}
+                </p>
               </div>
             </article>
           ))}
