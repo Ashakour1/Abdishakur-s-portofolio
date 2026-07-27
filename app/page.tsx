@@ -301,11 +301,11 @@ Building products, always learning, and sharing about software engineering, fint
 
       <section className="fade-up fade-up-delay-2 space-y-5 border-t border-white/10 pt-10">
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="">
+          <div className="min-w-0 space-y-3">
             <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
               Publications
             </p>
-            <h2 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               Writing about software engineering, AI, fintech, and experiments.
             </h2>
           </div>
