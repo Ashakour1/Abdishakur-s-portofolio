@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import posthog from "posthog-js";
 
 const THEME_STORAGE_KEY = "preferred-theme";
 
@@ -13,6 +14,7 @@ export function ThemeToggle() {
     document.documentElement.dataset.theme = nextTheme;
     document.documentElement.style.colorScheme = nextTheme;
     window.localStorage.setItem(THEME_STORAGE_KEY, nextTheme);
+    posthog.capture("theme_toggled", { theme: nextTheme });
   }
 
   return (

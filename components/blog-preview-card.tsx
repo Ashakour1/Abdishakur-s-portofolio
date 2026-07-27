@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import posthog from "posthog-js";
 import { formatDate, type BlogPost } from "@/lib/blog-data";
 
 type BlogPreviewCardProps = {
@@ -6,6 +9,14 @@ type BlogPreviewCardProps = {
 };
 
 export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
+  function handleReadArticleClick() {
+    posthog.capture("blog_post_read_article_clicked", {
+      post_slug: post.slug,
+      post_title: post.title,
+      post_category: post.category,
+    });
+  }
+
   return (
     <article className="group border-b border-white/10 py-6 last:border-b-0 last:pb-0">
       <div className="grid gap-4 md:grid-cols-[0.3fr_1fr] md:gap-8 lg:grid-cols-[0.3fr_1fr_auto] lg:items-start">
@@ -16,7 +27,7 @@ export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
         </div>
 
         <div className="min-w-0 space-y-3">
-          <Link href={`/blog/${post.slug}`} className="block">
+          <Link href={`/blog/${post.slug}`} className="block" onClick={handleReadArticleClick}>
             <h2 className="text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-slate-100 sm:text-[1.4rem]">
               {post.title}
             </h2>
@@ -27,6 +38,7 @@ export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
         <Link
           href={`/blog/${post.slug}`}
           className="inline-flex items-center text-sm font-medium text-slate-100 transition-transform group-hover:translate-x-0.5 hover:text-white md:pt-1 lg:justify-self-end"
+          onClick={handleReadArticleClick}
         >
           Read article
         </Link>

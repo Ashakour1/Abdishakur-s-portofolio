@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
+import { ContactSocialLinks } from "@/components/contact-social-links";
 import { PageShell } from "@/components/page-shell";
-import { MailIcon, SocialIcon } from "@/components/social-icon";
-import { siteConfig, socialLinks } from "@/lib/site-data";
+import { MailIcon } from "@/components/social-icon";
+import { siteConfig } from "@/lib/site-data";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -56,23 +57,7 @@ export default function ContactPage() {
             <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
               Social links
             </p>
-            <div className="mt-5 space-y-1">
-              {socialLinks.map((link) => (
-                <Link
-                  key={link.label}
-                  href={link.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-between gap-4 border-t border-white/10 py-4 text-sm text-slate-200 first:border-t-0 hover:text-white"
-                >
-                  <span className="inline-flex items-center gap-3">
-                    <SocialIcon label={link.label} />
-                    <span>{link.label}</span>
-                  </span>
-                  <span className="text-slate-400">Open</span>
-                </Link>
-              ))}
-            </div>
+            <ContactSocialLinks />
           </article>
 
           <article className="border-t border-white/10 pt-6">

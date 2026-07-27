@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import posthog from "posthog-js";
 import { SocialIcon } from "@/components/social-icon";
 import { siteConfig, socialLinks } from "@/lib/site-data";
 
@@ -19,6 +22,12 @@ export function SiteFooter() {
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 border border-line px-3 py-2 hover:border-line-strong hover:text-foreground"
+              onClick={() =>
+                posthog.capture("social_link_clicked", {
+                  platform: link.label,
+                  location: "footer",
+                })
+              }
             >
               <SocialIcon label={link.label} />
               {link.label}

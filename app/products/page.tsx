@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { PageShell } from "@/components/page-shell";
+import { ProductLink } from "@/components/product-link";
 import { productItems } from "@/lib/site-data";
 
 export const metadata: Metadata = {
@@ -64,15 +64,14 @@ export default function ProductsPage() {
             }
 
             return (
-              <Link
+              <ProductLink
                 key={product.name}
                 href={product.href}
-                target="_blank"
-                rel="noreferrer"
-                className="block"
+                productName={product.name}
+                productStatus={product.status}
               >
                 {content}
-              </Link>
+              </ProductLink>
             );
           })}
         </div>

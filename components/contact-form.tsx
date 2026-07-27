@@ -2,6 +2,7 @@
 
 import type { FormEvent } from "react";
 import { startTransition, useState } from "react";
+import posthog from "posthog-js";
 import { siteConfig } from "@/lib/site-data";
 
 export function ContactForm() {
@@ -23,6 +24,12 @@ export function ContactForm() {
     const body = encodeURIComponent(
       [`Name: ${name}`, `Email: ${email}`, "", message].join("\n"),
     );
+
+    posthog.capture("contact_form_submitted", {
+      has_name: name.length > 0,
+      has_message: message.length > 0,
+      message_length: message.length,
+    });
 
     startTransition(() => {
       setStatus("Opening your email client.");

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import posthog from "posthog-js";
 import { navigation, siteConfig } from "@/lib/site-data";
 import { ThemeToggle } from "@/components/theme-toggle";
 
@@ -63,7 +64,11 @@ export function SiteHeader() {
               aria-controls="site-menu"
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
               className="inline-flex h-10 w-10 items-center justify-center border border-line bg-transparent text-foreground transition-colors hover:bg-hover-surface md:hidden"
-              onClick={() => setIsMenuOpen((open) => !open)}
+              onClick={() => {
+                const next = !isMenuOpen;
+                setIsMenuOpen(next);
+                posthog.capture("mobile_menu_toggled", { action: next ? "opened" : "closed" });
+              }}
             >
               <span className="relative h-4 w-4">
                 <span
