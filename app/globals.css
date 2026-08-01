@@ -87,6 +87,14 @@ body {
   letter-spacing: -0.035em;
 }
 
+.featured-title {
+  font-family: var(--font-featured), "Iowan Old Style", Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "SOFT" 50, "opsz" 72;
+  letter-spacing: -0.03em;
+  font-weight: 500;
+}
+
 a,
 button,
 input,

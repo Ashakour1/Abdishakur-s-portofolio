@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
+import { Fraunces } from "next/font/google";
 import Script from "next/script";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/lib/site-data";
 import "./globals.css";
+
+const featuredSerif = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-featured",
+  display: "swap",
+  axes: ["SOFT", "opsz"],
+});
 
 const themeBootstrapScript = `
   (() => {
@@ -48,7 +56,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="dark" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="dark"
+      className={featuredSerif.variable}
+      suppressHydrationWarning
+    >
       <body className="min-h-screen bg-background text-foreground">
         <Script id="theme-bootstrap" strategy="beforeInteractive">
           {themeBootstrapScript}

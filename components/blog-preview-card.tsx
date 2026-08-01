@@ -6,9 +6,15 @@ import { formatDate, type BlogPost } from "@/lib/blog-data";
 
 type BlogPreviewCardProps = {
   post: BlogPost;
+  index?: number;
+  featured?: boolean;
 };
 
-export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
+export function BlogPreviewCard({
+  post,
+  index,
+  featured = false,
+}: BlogPreviewCardProps) {
   function handleReadArticleClick() {
     posthog.capture("blog_post_read_article_clicked", {
       post_slug: post.slug,
@@ -17,32 +23,78 @@ export function BlogPreviewCard({ post }: BlogPreviewCardProps) {
     });
   }
 
+  const number =
+    typeof index === "number" ? String(index).padStart(2, "0") : null;
+
   return (
-    <article className="group border-b border-white/10 py-6 last:border-b-0 last:pb-0">
-      <div className="grid gap-4 md:grid-cols-[0.3fr_1fr] md:gap-8 lg:grid-cols-[0.3fr_1fr_auto] lg:items-start">
-        <div className="space-y-2 text-xs uppercase tracking-[0.2em] text-white/45">
-          <p>{post.category}</p>
-          <p>{formatDate(post.date)}</p>
-          <p>{post.readTime}</p>
-        </div>
+    <article
+      className={`group border-b border-line last:border-b-0 ${
+        featured ? "pb-2" : ""
+      }`}
+    >
+      <Link
+        href={`/blog/${post.slug}`}
+        onClick={handleReadArticleClick}
+        className="grid gap-4 py-6 sm:grid-cols-[72px_minmax(0,1fr)_auto] sm:items-start sm:gap-8"
+      >
+        {number ? (
+          <p
+            className={`leading-none text-quiet sm:pt-1 ${
+              featured
+                ? "featured-title text-3xl"
+                : "editorial-title text-2xl"
+            }`}
+          >
+            {number}
+          </p>
+        ) : (
+          <span className="hidden sm:block" />
+        )}
 
         <div className="min-w-0 space-y-3">
-          <Link href={`/blog/${post.slug}`} className="block" onClick={handleReadArticleClick}>
-            <h2 className="text-xl font-semibold tracking-tight text-white transition-colors group-hover:text-slate-100 sm:text-[1.4rem]">
-              {post.title}
-            </h2>
-          </Link>
-          <p className="text-sm leading-7 text-slate-300">{post.excerpt}</p>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] uppercase tracking-[0.2em] text-quiet">
+            {featured ? (
+              <>
+                <span className="text-foreground">Featured</span>
+                <span aria-hidden="true" className="text-quiet">
+                  /
+                </span>
+              </>
+            ) : null}
+            <span>{post.category}</span>
+            <span aria-hidden="true" className="text-quiet">
+              /
+            </span>
+            <span>{formatDate(post.date)}</span>
+            <span aria-hidden="true" className="text-quiet">
+              /
+            </span>
+            <span>{post.readTime}</span>
+          </div>
+
+          <h2
+            className={
+              featured
+                ? "featured-title text-2xl leading-snug text-foreground transition-opacity group-hover:opacity-80 sm:text-[1.85rem]"
+                : "text-xl font-semibold tracking-tight text-foreground transition-colors group-hover:text-muted sm:text-[1.45rem] sm:leading-snug"
+            }
+          >
+            {post.title}
+          </h2>
+
+          <p className="max-w-2xl text-sm leading-7 text-muted">{post.excerpt}</p>
         </div>
 
-        <Link
-          href={`/blog/${post.slug}`}
-          className="inline-flex items-center text-sm font-medium text-slate-100 transition-transform group-hover:translate-x-0.5 hover:text-white md:pt-1 lg:justify-self-end"
-          onClick={handleReadArticleClick}
-        >
-          Read article
-        </Link>
-      </div>
+        <span className="inline-flex items-center gap-2 pt-1 text-sm font-medium text-foreground sm:justify-self-end">
+          Read
+          <span
+            aria-hidden="true"
+            className="transition-transform group-hover:translate-x-1"
+          >
+            →
+          </span>
+        </span>
+      </Link>
     </article>
   );
 }

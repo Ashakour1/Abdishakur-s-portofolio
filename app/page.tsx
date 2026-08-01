@@ -299,30 +299,39 @@ Building products, always learning, and sharing about software engineering, fint
         </div>
       </section>
 
-      <section className="fade-up fade-up-delay-2 space-y-5 border-t border-white/10 pt-10">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+      <section className="fade-up fade-up-delay-2 space-y-8 border-t border-line pt-10">
+        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
           <div className="min-w-0 space-y-3">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
+            <p className="text-[11px] uppercase tracking-[0.32em] text-quiet">
               Publications
             </p>
-            <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-              Writing about software engineering, AI, fintech, and experiments.
+            <h2 className="max-w-xl text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
+              Writing about software, AI systems, and building with intent.
             </h2>
+            <p className="max-w-md text-sm leading-7 text-muted">
+              Short essays from real product work — architecture decisions,
+              AI-assisted development, and lessons worth keeping.
+            </p>
           </div>
 
           <div className="flex items-start justify-start lg:justify-end">
             <Link
               href="/blog"
-              className="text-xs font-medium tracking-[0.08em] text-white/45 uppercase hover:text-white/72"
+              className="text-sm font-medium text-foreground hover:text-muted"
             >
-              See all Publications
+              See all publications →
             </Link>
           </div>
         </div>
 
-        <div className="space-y-1">
-          {featuredPosts.map((post) => (
-            <BlogPreviewCard key={post.slug} post={post} />
+        <div>
+          {featuredPosts.map((post, index) => (
+            <BlogPreviewCard
+              key={post.slug}
+              post={post}
+              index={index + 1}
+              featured={index === 0}
+            />
           ))}
         </div>
       </section>
