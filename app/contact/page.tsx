@@ -17,7 +17,7 @@ export default function ContactPage() {
     <PageShell
       eyebrow="Contact"
       title="Open to conversations around software engineering and AI/ML."
-      description="If you want to talk about product work, backend systems, engineering ideas, or the path into machine learning, send a message. The form opens your email client with everything prefilled."
+      description="If you want to talk about product work, backend systems, engineering ideas, or the path into machine learning, send a message. It goes straight to my inbox."
     >
       <section className="grid gap-10 border-t border-white/10 pt-10 md:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] md:gap-12">
         <article className="min-w-0">
@@ -28,8 +28,8 @@ export default function ContactPage() {
             Use the form or email directly.
           </h2>
           <p className="mt-3 text-sm leading-7 text-slate-400">
-            Share your name, email, and a short message. Your default email app
-            will open with everything prefilled.
+            Share your name, email, and a short message. I’ll receive it in my
+            inbox and can reply directly.
           </p>
           <div className="mt-6">
             <ContactForm />

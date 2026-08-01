@@ -7,8 +7,8 @@ export const siteConfig = {
   description:
     "A minimal developer portfolio focused on software engineering, systems thinking, and the path toward AI research and machine learning.",
   email: "a.shakour.mh@gmail.com",
-  githubUrl: "https://github.com/yourusername",
-  linkedInUrl: "https://www.linkedin.com/in/yourname/",
+  githubUrl: "https://github.com/Ashakour1",
+  linkedInUrl: "https://www.linkedin.com/feed/",
 } as const;
 
 export const navigation = [

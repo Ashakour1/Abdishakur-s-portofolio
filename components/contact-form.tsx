@@ -1,42 +1,56 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { startTransition, useState } from "react";
+import { useState } from "react";
 import posthog from "posthog-js";
-import { siteConfig } from "@/lib/site-data";
 
 export function ContactForm() {
   const [status, setStatus] = useState(
-    "This form opens your email client with the message prefilled.",
+    "Your message will be delivered to my inbox.",
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const form = event.currentTarget;
+    const formData = new FormData(form);
     const name = String(formData.get("name") ?? "").trim();
     const email = String(formData.get("email") ?? "").trim();
     const message = String(formData.get("message") ?? "").trim();
 
-    const subject = encodeURIComponent(
-      `Portfolio inquiry from ${name || "a new contact"}`,
-    );
-    const body = encodeURIComponent(
-      [`Name: ${name}`, `Email: ${email}`, "", message].join("\n"),
-    );
+    setIsSubmitting(true);
+    setStatus("Sending your message...");
 
-    posthog.capture("contact_form_submitted", {
-      has_name: name.length > 0,
-      has_message: message.length > 0,
-      message_length: message.length,
-    });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
 
-    startTransition(() => {
-      setStatus("Opening your email client.");
-    });
+      const result = (await response.json()) as { error?: string };
 
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-    event.currentTarget.reset();
+      if (!response.ok) {
+        setStatus(result.error || "Could not send your message. Try again.");
+        return;
+      }
+
+      posthog.capture("contact_form_submitted", {
+        has_name: name.length > 0,
+        has_message: message.length > 0,
+        message_length: message.length,
+      });
+
+      form.reset();
+      setStatus("Message sent. I'll get back to you soon.");
+    } catch {
+      setStatus("Could not send your message. Check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -49,7 +63,8 @@ export function ContactForm() {
             name="name"
             required
             autoComplete="name"
-            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
+            disabled={isSubmitting}
+            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong disabled:opacity-60 sm:text-sm"
             placeholder="Your name"
           />
         </label>
@@ -61,7 +76,8 @@ export function ContactForm() {
             name="email"
             required
             autoComplete="email"
-            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
+            disabled={isSubmitting}
+            className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong disabled:opacity-60 sm:text-sm"
             placeholder="you@example.com"
           />
         </label>
@@ -73,7 +89,8 @@ export function ContactForm() {
           name="message"
           required
           rows={6}
-          className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong sm:text-sm"
+          disabled={isSubmitting}
+          className="w-full border border-line bg-surface px-4 py-3 text-base text-foreground outline-none placeholder:text-quiet focus:border-line-strong disabled:opacity-60 sm:text-sm"
           placeholder="Tell me a bit about what you want to build or discuss."
         />
       </label>
@@ -83,9 +100,10 @@ export function ContactForm() {
 
         <button
           type="submit"
-          className="inline-flex w-full items-center justify-center border border-line-strong px-5 py-3 text-sm font-medium tracking-[0.01em] text-foreground sm:w-auto"
+          disabled={isSubmitting}
+          className="inline-flex w-full items-center justify-center border border-line-strong px-5 py-3 text-sm font-medium tracking-[0.01em] text-foreground disabled:opacity-60 sm:w-auto"
         >
-          Send Message
+          {isSubmitting ? "Sending..." : "Send Message"}
         </button>
       </div>
     </form>
