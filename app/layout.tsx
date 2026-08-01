@@ -53,6 +53,12 @@ export default function RootLayout({
         <Script id="theme-bootstrap" strategy="beforeInteractive">
           {themeBootstrapScript}
         </Script>
+        <Script
+          defer
+          src="https://cloud.umami.is/script.js"
+          data-website-id="5250c3c4-d346-413d-a6ae-af6ca7398879"
+          strategy="afterInteractive"
+        />
         <div aria-hidden="true" className="site-grid" />
         <div className="relative z-10 flex min-h-screen flex-col">
           <SiteHeader />
