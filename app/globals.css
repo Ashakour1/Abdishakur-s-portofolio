@@ -175,10 +175,41 @@ textarea {
   color: rgba(15, 23, 42, 0.45) !important;
 }
 
+[data-theme="light"] [class~="text-white/55"] {
+  color: rgba(15, 23, 42, 0.55) !important;
+}
+
+[data-theme="light"] [class~="text-white/40"],
 [data-theme="light"] [class~="text-white/35"],
+[data-theme="light"] [class~="text-white/34"],
 [data-theme="light"] [class~="text-white/32"],
 [data-theme="light"] [class~="text-white/30"] {
   color: rgba(15, 23, 42, 0.35) !important;
+}
+
+[data-theme="light"] [class~="text-white/62"] {
+  color: rgba(15, 23, 42, 0.62) !important;
+}
+
+[data-theme="light"] [class~="text-white/84"] {
+  color: rgba(15, 23, 42, 0.84) !important;
+}
+
+[data-theme="light"] [class~="text-emerald-200"] {
+  color: #047857 !important;
+}
+
+[data-theme="light"] [class~="text-amber-100"] {
+  color: #92400e !important;
+}
+
+[data-theme="light"] [class~="bg-white/20"] {
+  background-color: rgba(15, 23, 42, 0.2) !important;
+}
+
+[data-theme="light"] [class~="bg-white/[0.03]"],
+[data-theme="light"] [class~="bg-white/[0.04]"] {
+  background-color: var(--hover-surface) !important;
 }
 
 [data-theme="light"] [class~="text-white/25"] {

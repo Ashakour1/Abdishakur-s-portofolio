@@ -41,13 +41,13 @@ function getStatusTone(text: string): StatusTone {
 function statusToneClassName(tone: StatusTone) {
   switch (tone) {
     case "completed":
-      return "border-emerald-400/25 bg-emerald-400/10 text-emerald-200";
+      return "border-emerald-600/30 bg-emerald-500/15 text-emerald-700";
     case "progress":
-      return "border-amber-400/25 bg-amber-400/10 text-amber-100";
+      return "border-amber-600/30 bg-amber-500/15 text-amber-800";
     case "pending":
-      return "border-white/12 bg-white/[0.04] text-white/55";
+      return "border-line bg-hover-surface text-quiet";
     default:
-      return "border-white/12 bg-white/[0.04] text-white/70";
+      return "border-line bg-hover-surface text-muted";
   }
 }
 
@@ -77,11 +77,11 @@ function renderInlineMarkdown(text: string): ReactNode {
 
     return (
       <span className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <span className="text-[11px] uppercase tracking-[0.18em] text-white/40">
+        <span className="text-[11px] uppercase tracking-[0.18em] text-quiet">
           {key}
         </span>
         {valueTone === "neutral" ? (
-          <span className="text-white/84">{value}</span>
+          <span className="text-foreground">{value}</span>
         ) : (
           <StatusBadge label={value} />
         )}
@@ -138,7 +138,7 @@ function MarkdownDocument({ content }: { content: string }) {
         nodes.push(
           <h3
             key={`h1-${index}`}
-            className="text-xl font-semibold tracking-tight text-white sm:text-2xl"
+            className="text-xl font-semibold tracking-tight text-foreground sm:text-2xl"
           >
             {text}
           </h3>,
@@ -147,7 +147,7 @@ function MarkdownDocument({ content }: { content: string }) {
         nodes.push(
           <h4
             key={`h2-${index}`}
-            className="pt-2 text-[11px] uppercase tracking-[0.22em] text-white/40"
+            className="pt-2 text-[11px] uppercase tracking-[0.22em] text-quiet"
           >
             {text}
           </h4>,
@@ -156,7 +156,7 @@ function MarkdownDocument({ content }: { content: string }) {
         nodes.push(
           <h5
             key={`h3-${index}`}
-            className="pt-1 text-base font-medium tracking-tight text-white"
+            className="pt-1 text-base font-medium tracking-tight text-foreground"
           >
             {text}
           </h5>,
@@ -181,15 +181,15 @@ function MarkdownDocument({ content }: { content: string }) {
         nodes.push(
           <div
             key={`table-${index}`}
-            className="overflow-x-auto border border-white/10"
+            className="overflow-x-auto border border-line"
           >
             <table className="min-w-full border-collapse text-left text-sm">
               <thead>
-                <tr className="border-b border-white/10 bg-white/[0.03]">
+                <tr className="border-b border-line bg-hover-surface">
                   {table.header.map((cell) => (
                     <th
                       key={cell}
-                      className="px-4 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-white/40"
+                      className="px-4 py-3 text-[11px] font-medium uppercase tracking-[0.18em] text-quiet"
                     >
                       {cell}
                     </th>
@@ -200,12 +200,12 @@ function MarkdownDocument({ content }: { content: string }) {
                 {table.dataRows.map((row, rowIndex) => (
                   <tr
                     key={`${row.join("-")}-${rowIndex}`}
-                    className="border-b border-white/8 last:border-b-0"
+                    className="border-b border-line last:border-b-0"
                   >
                     {row.map((cell, cellIndex) => (
                       <td
                         key={`${cell}-${cellIndex}`}
-                        className="px-4 py-3 align-middle text-white/78"
+                        className="px-4 py-3 align-middle text-muted"
                       >
                         {cellIndex === row.length - 1 &&
                         getStatusTone(cell) !== "neutral" ? (
@@ -239,9 +239,9 @@ function MarkdownDocument({ content }: { content: string }) {
           {items.map((item) => (
             <li
               key={item}
-              className="flex gap-3 text-sm leading-7 text-white/74"
+              className="flex gap-3 text-sm leading-7 text-muted"
             >
-              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white/30" />
+              <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-quiet" />
               <span>{item}</span>
             </li>
           ))}
@@ -253,7 +253,7 @@ function MarkdownDocument({ content }: { content: string }) {
     nodes.push(
       <p
         key={`p-${index}`}
-        className="text-sm leading-7 text-white/74 sm:text-[0.95rem]"
+        className="text-sm leading-7 text-muted sm:text-[0.95rem]"
       >
         {renderInlineMarkdown(trimmed)}
       </p>,
@@ -349,22 +349,22 @@ function getMarkdownLineClassName(line: string) {
   const trimmed = line.trim();
 
   if (/^#{1,6}\s/.test(trimmed)) {
-    return "text-white";
+    return "text-foreground";
   }
 
   if (/^[-*]\s/.test(trimmed) || /^\d+\.\s/.test(trimmed)) {
-    return "text-white/74";
+    return "text-muted";
   }
 
   if (/^\|/.test(trimmed)) {
-    return "text-white/62";
+    return "text-muted";
   }
 
   if (/^```/.test(trimmed)) {
-    return "text-white/40";
+    return "text-quiet";
   }
 
-  return "text-white/70";
+  return "text-muted";
 }
 
 function getTokenClassName(
@@ -387,42 +387,42 @@ function getTokenClassName(
   }
 
   if (isPlainLanguage(language)) {
-    return "text-white/70";
+    return "text-muted";
   }
 
   if (token.startsWith("//") || token.startsWith("#")) {
-    return "text-white/32 italic";
+    return "text-quiet italic";
   }
 
   if (/^["'`]/.test(token)) {
-    return "text-white/82";
+    return "text-foreground";
   }
 
   if (/^\d/.test(token)) {
-    return "text-white/74";
+    return "text-muted";
   }
 
   if (keywordSet?.has(token)) {
-    return "text-white";
+    return "text-foreground";
   }
 
   if (/^[{}()[\].,:=+\-*/<>]+$/.test(token)) {
-    return "text-white/34";
+    return "text-quiet";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && nextToken === ":") {
-    return "text-white/88";
+    return "text-foreground";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && nextToken === "(") {
-    return "text-white/80";
+    return "text-foreground";
   }
 
   if (/^[A-Za-z_][A-Za-z0-9_]*$/.test(token) && previousToken === ".") {
-    return "text-white/74";
+    return "text-muted";
   }
 
-  return "text-white/70";
+  return "text-muted";
 }
 
 function HighlightedCode({
@@ -475,21 +475,21 @@ function HighlightedCode({
 export function BlogContentBlockView({ block }: BlogContentBlockProps) {
   switch (block.type) {
     case "paragraph":
-      return <p className="text-base leading-8 text-white/72">{block.content}</p>;
+      return <p className="text-base leading-8 text-muted">{block.content}</p>;
 
     case "subheading":
       return (
-        <h3 className="pt-2 text-lg font-semibold tracking-tight text-white sm:text-xl">
+        <h3 className="pt-2 text-lg font-semibold tracking-tight text-foreground sm:text-xl">
           {block.content}
         </h3>
       );
 
     case "list":
       return (
-        <ul className="space-y-3 text-base leading-8 text-white/72">
+        <ul className="space-y-3 text-base leading-8 text-muted">
           {block.items.map((item) => (
             <li key={item} className="flex gap-3">
-              <span className="mt-3 h-1.5 w-1.5 rounded-full bg-white/30" />
+              <span className="mt-3 h-1.5 w-1.5 rounded-full bg-quiet" />
               <span>{item}</span>
             </li>
           ))}
@@ -499,31 +499,31 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
     case "code":
       return (
         <figure className="space-y-3">
-          <div className="overflow-hidden border border-white/10">
+          <div className="overflow-hidden border border-line bg-surface">
             {block.filename || block.language ? (
-              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-white/[0.03] px-5 py-3">
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-hover-surface px-5 py-3">
                 {block.filename ? (
-                  <span className="font-mono text-xs tracking-normal text-white/55 normal-case">
+                  <span className="font-mono text-xs tracking-normal text-quiet normal-case">
                     {block.filename}
                   </span>
                 ) : (
                   <span />
                 )}
                 {block.language ? (
-                  <span className="text-[11px] uppercase tracking-[0.24em] text-white/35">
+                  <span className="text-[11px] uppercase tracking-[0.24em] text-quiet">
                     {block.language}
                   </span>
                 ) : null}
               </div>
             ) : null}
 
-            <pre className="overflow-x-auto bg-background px-5 py-4 text-sm leading-7 text-white/72">
+            <pre className="overflow-x-auto px-5 py-4 text-sm leading-7 text-muted">
               <HighlightedCode code={block.code} language={block.language} />
             </pre>
           </div>
 
           {block.caption ? (
-            <figcaption className="text-sm leading-7 text-white/48">
+            <figcaption className="text-sm leading-7 text-quiet">
               {block.caption}
             </figcaption>
           ) : null}
@@ -533,25 +533,25 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
     case "markdown":
       return (
         <figure className="space-y-3">
-          <div className="overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.015))]">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-3">
+          <div className="overflow-hidden border border-line bg-surface">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-hover-surface px-5 py-3">
               <div className="flex min-w-0 items-center gap-3">
                 <span className="flex items-center gap-1.5" aria-hidden="true">
-                  <span className="h-2 w-2 rounded-full bg-white/20" />
-                  <span className="h-2 w-2 rounded-full bg-white/20" />
-                  <span className="h-2 w-2 rounded-full bg-white/20" />
+                  <span className="h-2 w-2 rounded-full bg-quiet/50" />
+                  <span className="h-2 w-2 rounded-full bg-quiet/50" />
+                  <span className="h-2 w-2 rounded-full bg-quiet/50" />
                 </span>
                 {block.filename ? (
-                  <span className="truncate font-mono text-xs text-white/55">
+                  <span className="truncate font-mono text-xs text-quiet">
                     {block.filename}
                   </span>
                 ) : (
-                  <span className="text-[11px] uppercase tracking-[0.22em] text-white/35">
+                  <span className="text-[11px] uppercase tracking-[0.22em] text-quiet">
                     Markdown
                   </span>
                 )}
               </div>
-              <span className="text-[11px] uppercase tracking-[0.22em] text-white/35">
+              <span className="text-[11px] uppercase tracking-[0.22em] text-quiet">
                 Preview
               </span>
             </div>
@@ -562,7 +562,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
           </div>
 
           {block.caption ? (
-            <figcaption className="text-sm leading-7 text-white/48">
+            <figcaption className="text-sm leading-7 text-quiet">
               {block.caption}
             </figcaption>
           ) : null}
@@ -571,19 +571,19 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
 
     case "math":
       return (
-        <div className="space-y-3 bg-background px-5 py-5">
+        <div className="space-y-3 border border-line bg-surface px-5 py-5">
           {block.label ? (
-            <p className="text-[11px] uppercase tracking-[0.24em] text-white/35">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-quiet">
               {block.label}
             </p>
           ) : null}
 
-          <pre className="editorial-title overflow-x-auto whitespace-pre-wrap text-2xl leading-relaxed text-white sm:text-[1.9rem]">
+          <pre className="editorial-title overflow-x-auto whitespace-pre-wrap text-2xl leading-relaxed text-foreground sm:text-[1.9rem]">
             {block.expression}
           </pre>
 
           {block.note ? (
-            <p className="text-sm leading-7 text-white/48">{block.note}</p>
+            <p className="text-sm leading-7 text-quiet">{block.note}</p>
           ) : null}
         </div>
       );
@@ -591,7 +591,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
     case "image":
       return (
         <figure className="space-y-3">
-          <div className="overflow-hidden bg-background p-3">
+          <div className="overflow-hidden border border-line bg-surface p-3">
             <Image
               src={block.src}
               alt={block.alt}
@@ -603,7 +603,7 @@ export function BlogContentBlockView({ block }: BlogContentBlockProps) {
           </div>
 
           {block.caption ? (
-            <figcaption className="text-sm leading-7 text-white/48">
+            <figcaption className="text-sm leading-7 text-quiet">
               {block.caption}
             </figcaption>
           ) : null}
