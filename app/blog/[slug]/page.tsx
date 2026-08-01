@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BlogContentBlockView } from "@/components/blog-content-block";
 import { blogPosts, formatDate, getPostBySlug } from "@/lib/blog-data";
+import { siteConfig } from "@/lib/site-data";
 
 type BlogPostPageProps = {
   params: Promise<{ slug: string }>;
@@ -33,9 +34,25 @@ export async function generateMetadata({
     };
   }
 
+  const isFeatured = blogPosts[0]?.slug === post.slug;
+
   return {
     title: post.title,
     description: post.excerpt,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+      siteName: siteConfig.name,
+      publishedTime: post.date,
+      authors: [siteConfig.name],
+      tags: isFeatured ? [post.category, "Featured"] : [post.category],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }
 
