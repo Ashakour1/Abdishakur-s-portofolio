@@ -36,6 +36,6 @@ jobs:
 
             npm run build
 
-            pm2 restart larsomaliska
+            pm2 restart abdishakur-portofolio
 
             pm2 save
