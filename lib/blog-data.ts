@@ -4,6 +4,10 @@ export type BlogContentBlock =
       content: string;
     }
   | {
+      type: "subheading";
+      content: string;
+    }
+  | {
       type: "list";
       items: string[];
     }
@@ -11,6 +15,12 @@ export type BlogContentBlock =
       type: "code";
       code: string;
       language?: string;
+      filename?: string;
+      caption?: string;
+    }
+  | {
+      type: "markdown";
+      content: string;
       filename?: string;
       caption?: string;
     }
@@ -45,6 +55,436 @@ export type BlogPost = {
 };
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "stop-writing-bigger-ai-prompts-start-building-smarter-ai-projects",
+    title: "Stop Writing Bigger AI Prompts. Start Building Smarter AI Projects.",
+    date: "2026-08-01",
+    category: "AI Engineering",
+    readTime: "9 min read",
+    excerpt:
+      "Why I believe the future of AI-assisted software development is Project Engineering, not Prompt Engineering.",
+    sections: [
+      {
+        heading: "The real problem isn't prompts",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Artificial Intelligence has become an integral part of modern software development. Today, developers use AI to generate code, debug applications, design APIs, review pull requests, write documentation, and accelerate development across the entire software lifecycle.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Despite these advancements, one challenge remains surprisingly common.",
+          },
+          {
+            type: "paragraph",
+            content: "Every new AI session feels like starting over.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Developers repeatedly explain the project's purpose, architecture, completed features, technical decisions, and current objectives before the AI can contribute meaningfully. As projects grow, prompts become increasingly long, context becomes fragmented, and productivity begins to decline.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "For a long time, I believed the solution was writing better prompts.",
+          },
+          {
+            type: "paragraph",
+            content: "I no longer think that's the problem.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "The real issue isn't the quality of our prompts. It's the lack of structured project context.",
+          },
+        ],
+      },
+      {
+        heading: "AI should understand the project, not the conversation",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Imagine a senior software engineer joining your team. You wouldn't ask them to read months of chat history before writing their first line of code.",
+          },
+          {
+            type: "paragraph",
+            content: "Instead, you would provide:",
+          },
+          {
+            type: "list",
+            items: [
+              "A brief overview of the project.",
+              "The product roadmap.",
+              "The current development milestone.",
+              "Access to the codebase.",
+              "The task they're responsible for.",
+            ],
+          },
+          {
+            type: "paragraph",
+            content:
+              "Within minutes, they understand where the project stands and what needs to happen next. This is exactly how AI should work.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Instead of depending on previous conversations, AI should begin by understanding the project itself.",
+          },
+        ],
+      },
+      {
+        heading: "From Prompt Engineering to Project Engineering",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Prompt Engineering has helped developers get better results from AI. However, prompts alone cannot manage long-term software development.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Software projects evolve over weeks, months, and sometimes years. During that time, requirements change, new features are added, bugs are fixed, and priorities shift. Trying to capture all of that inside a single prompt quickly becomes impossible.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Instead of making prompts larger, we should make projects easier to understand. I call this approach Project Engineering.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "The prompt becomes the instruction. The project becomes the context.",
+          },
+        ],
+      },
+      {
+        heading: "A simple project structure",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "To support this workflow, every project includes a small planning directory.",
+          },
+          {
+            type: "code",
+            language: "text",
+            filename: "project/",
+            caption:
+              "A roadmap plus one plan per milestone. Nothing else to maintain.",
+            code: `project/
+├── plans/
+│   ├── roadmap.md
+│   ├── plan-01-foundation.md
+│   ├── plan-02-authentication.md
+│   ├── plan-03-core-features.md
+│   ├── plan-04-integrations.md
+│   └── plan-05-deployment.md
+├── backend/
+├── frontend/
+└── README.md`,
+          },
+          {
+            type: "paragraph",
+            content:
+              "There is no complex AI memory system. No prompt archive. No dozens of documents to maintain. Just a roadmap and one implementation plan for each major milestone.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Simple systems are easier to maintain, easier to understand, and far more likely to stay up to date.",
+          },
+        ],
+      },
+      {
+        heading: "The roadmap becomes the source of truth",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Every development session begins with the roadmap. Its purpose isn't to describe implementation details. Its purpose is to answer four simple questions:",
+          },
+          {
+            type: "list",
+            items: [
+              "What is this project?",
+              "What has already been completed?",
+              "What is currently being developed?",
+              "What comes next?",
+            ],
+          },
+          {
+            type: "paragraph",
+            content: "A roadmap might look like this:",
+          },
+          {
+            type: "markdown",
+            filename: "plans/roadmap.md",
+            caption:
+              "Within seconds, both the developer and the AI understand the current state of the project.",
+            content: `# Project Roadmap
+
+## Progress
+
+| Plan | Status |
+|------|--------|
+| Foundation | ✅ Completed |
+| Authentication | 🚧 In Progress |
+| Core Features | ⏳ Pending |
+| Deployment | ⏳ Pending |
+
+Current Plan: Authentication
+Next Plan: Core Features`,
+          },
+        ],
+      },
+      {
+        heading: "Every plan has a clear objective",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "While the roadmap provides the big picture, each plan describes a single milestone.",
+          },
+          {
+            type: "markdown",
+            filename: "plans/plan-02-authentication.md",
+            caption:
+              "Enough context to continue the next session without rebuilding the story from scratch.",
+            content: `# Authentication
+
+Status: In Progress
+
+## Objective
+
+Build a secure authentication system.
+
+### Phase 1 — Database
+✅ Completed
+
+- Users
+- Roles
+
+### Phase 2 — Backend
+🚧 In Progress
+
+- Login
+- Registration
+- JWT Authentication
+
+### Phase 3 — Frontend
+⏳ Pending
+
+- Login Screen
+- Registration Screen`,
+          },
+          {
+            type: "paragraph",
+            content:
+              "The objective is not to document every implementation detail. The objective is to give enough context so the next development session can continue without unnecessary explanation.",
+          },
+        ],
+      },
+      {
+        heading: "The prompt becomes remarkably simple",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Because the project already contains the necessary context, the prompt becomes almost effortless.",
+          },
+          {
+            type: "code",
+            language: "text",
+            filename: "session-prompt.txt",
+            caption:
+              "The project explains what needs to be built. The prompt explains what to do next.",
+            code: `Read roadmap.md.
+
+Open the active plan.
+
+Review the current phase.
+
+Create a short implementation plan.
+
+Implement the current phase.
+
+Update the plan and roadmap.`,
+          },
+        ],
+      },
+      {
+        heading: "A consistent development workflow",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Every development session follows the same sequence.",
+          },
+          {
+            type: "code",
+            language: "text",
+            filename: "workflow",
+            caption:
+              "Consistency is what makes this workflow effective across stacks and project sizes.",
+            code: `Developer Request
+      │
+      ▼
+Read roadmap.md
+      │
+      ▼
+Open active plan
+      │
+      ▼
+Understand current phase
+      │
+      ▼
+Create implementation plan
+      │
+      ▼
+Implement
+      │
+      ▼
+Update plan
+      │
+      ▼
+Update roadmap`,
+          },
+          {
+            type: "paragraph",
+            content:
+              "The process remains consistent regardless of the technology stack or project size.",
+          },
+        ],
+      },
+      {
+        heading: "Building continuity into AI-assisted development",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "One of the greatest challenges in AI-assisted software development is maintaining continuity between work sessions.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Without a structured workflow, every conversation begins by reconstructing the project's context. Developers spend valuable time repeating information that already exists somewhere inside the project.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "By introducing a roadmap and feature-specific implementation plans, that context becomes part of the project rather than part of the conversation. This provides several important benefits.",
+          },
+          {
+            type: "subheading",
+            content: "Continuous Development",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Every session begins with a clear understanding of where the project currently stands, allowing development to continue naturally instead of restarting from scratch.",
+          },
+          {
+            type: "subheading",
+            content: "Better Collaboration",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Developers, teammates, and AI assistants all work from the same source of truth. Everyone understands the project's current state without relying on previous conversations.",
+          },
+          {
+            type: "subheading",
+            content: "Smaller, More Effective Prompts",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Because the project contains the context, prompts become concise, focused, and easier to maintain.",
+          },
+          {
+            type: "subheading",
+            content: "Clear Project Visibility",
+          },
+          {
+            type: "paragraph",
+            content:
+              "The roadmap provides an immediate overview of completed work, active development, and upcoming milestones.",
+          },
+          {
+            type: "subheading",
+            content: "Documentation That Evolves With the Project",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Plans are updated as work progresses, ensuring documentation remains relevant throughout the project's lifecycle.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "This workflow doesn't replace good engineering practices. It reinforces them.",
+          },
+        ],
+      },
+      {
+        heading: "Agentic AI is more than code generation",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "Many discussions describe Agentic AI as an AI capable of using tools or executing commands. Those capabilities are valuable, but they're only part of the picture.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "A capable engineering agent should first understand the project. It should know the project's direction. It should understand the active milestone. It should recognize completed work. It should continue development rather than restart it.",
+          },
+          {
+            type: "paragraph",
+            content: "Only then should it begin writing code.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "When AI works this way, it stops behaving like a chatbot. It starts behaving like another software engineer on the team.",
+          },
+        ],
+      },
+      {
+        heading: "Final thoughts",
+        blocks: [
+          {
+            type: "paragraph",
+            content:
+              "The biggest improvement in my development workflow didn't come from discovering a better prompt. It came from changing how I organize my projects.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "Instead of asking AI to remember everything, I let the project provide the context. The roadmap provides direction. Each plan defines a milestone. Each milestone is broken into manageable phases. The prompt simply tells the AI where to begin.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "I believe the future of AI-assisted software development won't be defined by the size of our prompts. It will be defined by how well we structure our projects.",
+          },
+          {
+            type: "paragraph",
+            content:
+              "When AI can understand a project's direction before writing code, it stops acting like a code generator and starts contributing like a software engineer.",
+          },
+          {
+            type: "paragraph",
+            content: "Less prompting. Better planning. Smarter projects.",
+          },
+        ],
+      },
+    ],
+  },
   {
     slug: "my-machine-learning-journey-begins",
     title: "My Machine Learning Journey Begins",
