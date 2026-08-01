@@ -4,7 +4,7 @@ import { PageShell } from "@/components/page-shell";
 import { dailyUsageSections } from "@/lib/site-data";
 
 export const metadata: Metadata = {
-  title: "Daily Usage",
+  title: "My Gear",
   description:
     "A minimal overview of the tools used daily for development, AI/ML learning, and productivity.",
 };
@@ -16,7 +16,7 @@ function getInitials(name: string) {
 export default function DailyUsagePage() {
   return (
     <PageShell
-      eyebrow="Daily Usage"
+      eyebrow="My Gear"
       title="The devices and tools behind my daily workflow."
       description="A practical look at the hardware and software I use most often for development, testing, communication, and focused execution."
     >

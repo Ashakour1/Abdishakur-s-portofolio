@@ -237,7 +237,7 @@ Building products, always learning, and sharing about software engineering, fint
         <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
           <div className="min-w-0 space-y-3">
             <p className="text-[11px] uppercase tracking-[0.32em] text-white/45">
-              Daily Usage
+              My Gear
             </p>
             <h2 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
               A selection of the tools I use every day.
